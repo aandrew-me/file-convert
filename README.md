@@ -11,7 +11,8 @@ cd file-convert
 npm install
 npm start
 ```
-The server will be started at the location - http://localhost:60699
+The app window will be opened.
+The will also be a server running locally on- http://localhost:60699
 
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/66430340/178760102-1ee10109-ea15-40e9-88ca-82940e282554.png)
