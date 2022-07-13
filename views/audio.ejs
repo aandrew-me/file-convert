@@ -1,0 +1,43 @@
+<html>
+
+<head>
+  <title>Audio Converter</title>
+  <link rel="stylesheet" href="converter_page.css">
+  <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+  <script src="common.js" defer></script>
+</head>
+
+<body>
+  <div id="toggle" onclick="toggle()">
+    <div id="inside"></div>
+  </div>
+  <h1>Audio Converter</h1>
+  <a href="/">Back</a>
+  <div class="container" id="container">
+    <div class="box">
+
+      <form id="form" enctype="multipart/form-data" method="post" action="/audio" onsubmit="notify()">
+        <label>Select Audio/Video:</label>
+        <input type="file" id="upload-input" accept="audio/*" name="file" class="form-control" required />
+        <br>
+        <label for="format">Select Format:</label>
+        <select class="form-control" id="format" name="format">
+          <option value="mp3" selected>Mp3</option>
+          <option value="aac">Aac</option>
+          <option value="m4a">M4a</option>
+          <option value="wav">Wav</option>
+          <option value="wma">Wma</option>
+          <option value="ogg">Ogg</option>
+          <option value="flac">Flac</option>
+          <option value="aiff">Aiff</option>
+          <option value="opus">Opus</option>
+          <option value="mmf">Mmf</option>
+        </select>
+        <br>
+      </div>
+
+        <button type="submit">Convert Audio</button>
+      </form>
+  </div>
+
+</html>

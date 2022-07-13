@@ -1,0 +1,35 @@
+<html>
+
+<head>
+  <title>Document Converter</title>
+  <link rel="stylesheet" href="converter_page.css">
+  <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+  <script src="common.js" defer></script>
+</head>
+
+<body>
+  <div id="toggle" onclick="toggle()">
+    <div id="inside"></div>
+  </div>
+  <h1>Document Converter</h1>
+  <a href="/">Back</a>
+  <div class="container" id="container">
+    <form id="form" enctype="multipart/form-data" method="post" action="/document" onsubmit="notify()">
+      <label>Select Document:</label>
+      <input type="file" id="upload-input" accept="document/*" name="file" class="form-control" required />
+      <br>
+      <label for="format">Select Format:</label>
+      <select class="form-control" id="format" name="format">
+        <option value="docx" selected>Docx</option>
+        <option value="pdf">PDF</option>
+        <option value="doc">Doc</option>
+        <option value="html">HTML</option>
+        <option value="rtf">RTF</option>
+        <option value="txt">Txt</option>
+        <option value="odt">ODT</option>
+      </select>
+      <button type="submit">Convert Document</button>
+    </form>
+  </div>
+
+</html>

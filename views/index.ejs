@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File converter</title>
+    <link rel="stylesheet" href="/index.css">
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+</head>
+
+<body>
+    <div id="toggle" onclick="toggle()">
+        <div id="inside"></div>
+    </div>
+
+    <h1>Free File Conversion</h1>
+
+    <div class="container">
+
+        <a href="/document">
+            <div class="card">
+                <h2>Document Converter</h2>
+                <p>Document converter allows you to convert Word to PDF and much more.</p>
+            </div>
+        </a>
+
+
+        <a href="/video">
+            <div class="card">
+                <h2>Video Converter</h2>
+                <p>Convert video files to different formats like mp4, mkv and more.</p>
+            </div>
+        </a>
+
+        <a href="/audio">
+            <div class="card">
+                <h2>Audio Converter</h2>
+                <p>Conversion of Audio files among the most common formats</p>
+            </div>
+        </a>
+
+        <a href="/image">
+            <div class="card">
+                <h2>Image Converter</h2>
+                <p>Conversion among different image formats.</p>
+            </div>
+        </a>
+    </div>
+
+    <script>
+        let state = false
+        let button = document.getElementById("toggle")
+        let circle = document.getElementById("inside")
+        const theme = localStorage.getItem("theme")
+
+        if (theme == "dark") {
+            toggle()
+        }
+        function toggle() {
+            if (state == false) {
+                circle.style.left = "20px"
+                button.style.backgroundColor = "rgb(80, 193, 238)"
+                state = true
+                localStorage.setItem("theme", "dark")
+                document.body.style.backgroundColor = "rgb(20, 20, 20)"
+                document.body.style.color = "white"
+                document.querySelectorAll(".card").forEach(el => { el.style.boxShadow = "none" })
+            }
+            else {
+                circle.style.left = "0px"
+                state = false;
+                localStorage.setItem("theme", "light")
+                button.style.backgroundColor = "rgb(147, 174, 185)"
+                document.body.style.backgroundColor = "white"
+                document.body.style.color = "black"
+                document.querySelectorAll(".card").forEach(el => { el.style.boxShadow = "2px 2px 4px gray" })
+            }
+        }
+
+    </script>
+</body>
+
+</html>

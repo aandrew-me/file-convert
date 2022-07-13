@@ -1,0 +1,60 @@
+<html>
+
+<head>
+  <title>Video Converter</title>
+  <link rel="stylesheet" href="converter_page.css">
+  <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+  <script src="common.js" defer></script>
+</head>
+
+<body>
+  <div id="toggle" onclick="toggle()">
+    <div id="inside"></div>
+  </div>
+  <h1>Video Converter</h1>
+  <a href="/">Back</a>
+  <div class="container" id="container">
+    <div class="box">
+      <form id="form" enctype="multipart/form-data" method="post" action="/video" onsubmit="notify()">
+        <label>Select Video:</label>
+        <input type="file" id="upload-input" accept="video/*" name="file" class="form-control" required/>
+        <br>
+        <label for="format">Select Format:</label>
+        <select class="form-control" id="format" name="format">
+          <option value="mp4" selected>MP4</option>
+          <option value="avi">AVI</option>
+          <option value="wmv">WMV</option>
+          <option value="mkv">MKV</option>
+          <option value="flv">FLV</option>
+          <option value="mov">MOV</option>
+          <option value="m4v">M4V</option>
+          <option value="webm">WEBM (slow)</option>
+        </select>
+        <!-- Advanced options (hidden by default) -->
+
+        <div id="advanced">
+          <label>Set Framerate:</label>
+          <input type="text" placeholder="Frames per second" name="framerate">
+          <br>
+          <label>Set Resolution</label>
+          <input type="text" placeholder="Width (px)" name="width">
+          <input type="text" placeholder="Height (px)" name="height">
+          <br>
+          <label>Don't Preserve Aspect ratio</label>
+          <input type="checkbox" name="noPreserving">
+        </div>
+
+
+        <br><br>
+        <div id="advancedToggle" onclick="toggleAdvanced()">Advanced</div>
+        <button type="submit">Convert Video</button>
+        <p id="converting"></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+
+  </script>
+
+</html>
