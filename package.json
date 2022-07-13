@@ -11,10 +11,7 @@
   },
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
-  },
-  "devDependencies": {
-    "electron": "^6.1.12"
+    "start": "node app.js"
   },
   "description": "A set of conversion tools",
   "author": "Andrew",
