@@ -1,5 +1,5 @@
 # file-convert
-Convert video, audio, image and other files.
+Convert video, audio, image and other files. This is the electron version which can be packaged and run as a desktop app.
 
 This project is still in development stage.
 
@@ -9,7 +9,7 @@ Required commands for the project to work
 git clone https://github.com/aandrew-me/file-convert.git
 cd file-convert
 npm install
-node app.js
+npm start
 ```
 The server will be started at the location - http://localhost:60699
 
