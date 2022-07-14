@@ -95,10 +95,10 @@ app.post("/video", upload.single("file"), (req, res) => {
 				}
 
 				video
-					.setVideoFrameRate(
-						req.body.framerate || video.metadata.video.fps
-					)
-					.setVideoSize(videoSize, true, preserveRatio)
+					// .setVideoFrameRate(
+					// 	req.body.framerate || video.metadata.video.fps
+					// )
+					// .setVideoSize(videoSize, true, preserveRatio)
 					.save("converted/" + output, function (error, file) {
 						if (!error) {
 						console.log("File: " + file);
