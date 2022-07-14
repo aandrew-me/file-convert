@@ -226,7 +226,7 @@ app.post("/image", upload.single("file"), (req, res) => {
 
 
 app.get("/document", (req, res) => {
-	res.render("document");
+	res.render("document", {warning:""});
 });
 
 // Requires libreoffice to be installed
@@ -248,7 +248,6 @@ app.post("/document", upload.single("file"), function (req, res) {
 		
 		// Here in done you have pdf file which you can save or transfer in another stream
 		await fsp.writeFile(outputPath, pdfBuf);
-
 		res.download(outputPath, ()=>{
 			fs.unlink(outputPath, (err) => {
 				if (err) throw err;
@@ -263,6 +262,8 @@ app.post("/document", upload.single("file"), function (req, res) {
 	
 	main().catch(function (err) {
 		console.log(`Error converting file: ${err}`);
+		fs.readdirSync(uploads).forEach(f => fs.rmSync(`${uploads}/${f}`))
+		res.render("document", {warning:"<script>alert(`Some error has occured. Use correct file.`)</script>"})
 	});
 
 });
