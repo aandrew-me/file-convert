@@ -1,4 +1,4 @@
-const ffmpeg = require("ffmpeg");
+const ffmpeg = require("ffmpeg-for-static");
 const express = require("express");
 const app = express();
 const multer = require("multer");
