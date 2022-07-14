@@ -13,6 +13,9 @@
   "scripts": {
     "start": "node app.js"
   },
+  "engines": {
+    "node": "18.5.0"
+  },
   "description": "A set of conversion tools",
   "author": "Andrew",
   "name": "file-convert",
