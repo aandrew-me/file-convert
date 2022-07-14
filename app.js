@@ -27,8 +27,19 @@ app.use(bodyparser.urlencoded({ extended: false }));
 // Removing any uploaded or converted files if there are any
 const uploads = __dirname + "/uploads"
 const converted = __dirname + "/converted"
-fs.readdirSync(uploads).forEach(f => fs.rmSync(`${uploads}/${f}`))
-fs.readdirSync(converted).forEach(f => fs.rmSync(`${converted}/${f}`))
+
+if (!fs.existsSync(uploads)){
+    fs.mkdirSync(uploads);
+}
+else{
+	fs.readdirSync(uploads).forEach(f => fs.rmSync(`${uploads}/${f}`))
+}
+if (!fs.existsSync(converted)){
+	fs.mkdirSync(converted)
+}
+else{
+	fs.readdirSync(converted).forEach(f => fs.rmSync(`${converted}/${f}`))
+}
 
 
 app.get("/", (req, res) => {
