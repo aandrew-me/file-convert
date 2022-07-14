@@ -123,8 +123,6 @@ app.get("/audio", (req, res) => {
 app.post("/audio", upload.single("file"), (req, res) => {
 	const filepath = req.file.path;
 	const output =
-		__dirname +
-		"/converted/" +
 		Date.now() +
 		"_converted." +
 		req.body.format;
@@ -133,10 +131,10 @@ app.post("/audio", upload.single("file"), (req, res) => {
 		var process = new ffmpeg(filepath);
 		process.then(
 			function (audio) {
-				audio.save(output, function (error, file) {
+				audio.save("converted/" + output, function (error, file) {
 					if (!error) console.log("File: " + file);
-					res.download(file, () => {
-						fs.unlink(output, (err) => {
+					res.download("converted/" + output, () => {
+						fs.unlink("converted/" + output, (err) => {
 							if (err) throw err;
 							console.log("Deleted: " + file);
 						});
@@ -211,6 +209,7 @@ app.post("/image", upload.single("file"), (req, res) => {
 	});
 });
 
-app.listen(60699, () => {
-	console.log("Server: http://127.0.0.1:60699");
+const PORT = process.env.PORT || 60699
+app.listen(PORT, () => {
+	console.log("Server: http://127.0.0.1:" + PORT);
 });
