@@ -2,6 +2,7 @@
 Convert video, audio, image and other files.
 
 This project is still in development stage.
+Document Conversion feature needs [Libreoffice](https://www.libreoffice.org/) to be installed to work.
 
 Node.js and npm should be installed.
 Required commands for the project to work (type them in terminal/command prompt/powershell)
