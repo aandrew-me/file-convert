@@ -21,6 +21,6 @@
   "description": "A set of conversion tools",
   "author": "Andrew",
   "name": "file-convert",
-  "version": "0.2.0",
+  "version": "0.8.0",
   "license": "MIT"
 }
