@@ -3,7 +3,8 @@ Convert video, audio, image and other files.
 
 This project is still in development stage.
 
-Required commands for the project to work
+Node.js and npm should be installed.
+Required commands for the project to work (type them in terminal/command prompt/powershell)
 
 ```
 git clone https://github.com/aandrew-me/file-convert.git
