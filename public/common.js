@@ -43,8 +43,8 @@ function toggleAdvanced() {
 }
 
 function notify(title, bodytext){
-	bodytext = "Video Processing"
-	title = "The video will download after processing has been finished"
+	bodytext = "File is Processing"
+	title = "The file will download after processing has been finished"
 	const notification = new Notification(title, {
 	   body: bodytext,
 	   requireInteraction:false
