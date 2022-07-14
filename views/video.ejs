@@ -17,7 +17,7 @@
     <div class="box">
       <form id="form" enctype="multipart/form-data" method="post" action="/video" onsubmit="notify()">
         <label>Select Video:</label>
-        <input type="file" id="upload-input" accept="video/*" name="file" class="form-control" required/>
+        <input type="file" id="upload-input" accept="video/*, .jpg" name="file" class="form-control" required/>
         <br>
         <label for="format">Select Format:</label>
         <select class="form-control" id="format" name="format">

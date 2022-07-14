@@ -5,7 +5,11 @@ const multer = require("multer");
 const jimp = require("jimp");
 const bodyparser = require("body-parser");
 const fs = require("fs");
+const fsp = require("fs").promises;
 const path = require("path");
+// Libreoffice needs to be installed
+const libre = require('libreoffice-convert');
+libre.convertAsync = require('util').promisify(libre.convert);
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 		cb(null, __dirname + "/uploads");
@@ -44,15 +48,6 @@ else{
 
 app.get("/", (req, res) => {
 	res.render("index.ejs");
-});
-
-
-app.get("/document", (req, res) => {
-	res.render("document");
-});
-
-app.post("/document", upload.single("file"), function (req, res, next) {
-	res.send(req.file);
 });
 
 // Video file handling
@@ -227,6 +222,51 @@ app.post("/image", upload.single("file"), (req, res) => {
 		});
 	});
 });
+
+
+
+app.get("/document", (req, res) => {
+	res.render("document");
+});
+
+// Requires libreoffice to be installed
+// Processing of document files
+
+app.post("/document", upload.single("file"), function (req, res) {
+	const filepath = req.file.path;
+	const outputfile = Date.now() + "_converted." + req.body.format;
+
+	async function main() {
+		const inputPath = filepath;
+		const outputPath = "converted/" + outputfile
+	
+		// Read file
+		const docxBuf = await fsp.readFile(inputPath);
+	
+		// Convert it to pdf format with undefined filter (see Libreoffice docs about filter)
+		let pdfBuf = await libre.convertAsync(docxBuf, req.body.format, undefined);
+		
+		// Here in done you have pdf file which you can save or transfer in another stream
+		await fsp.writeFile(outputPath, pdfBuf);
+
+		res.download(outputPath, ()=>{
+			fs.unlink(outputPath, (err) => {
+				if (err) throw err;
+				console.log("Deleted: " + outputfile);
+			});
+			fs.unlink(filepath, (err) => {
+				if (err) throw err;
+				console.log("Deleted: " + filepath);
+			});
+		})
+	}
+	
+	main().catch(function (err) {
+		console.log(`Error converting file: ${err}`);
+	});
+
+});
+
 
 const PORT = process.env.PORT || 60699
 app.listen(PORT, () => {
