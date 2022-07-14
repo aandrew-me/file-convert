@@ -64,8 +64,6 @@ app.get("/video", (req, res) => {
 app.post("/video", upload.single("file"), (req, res) => {
 	const filepath = req.file.path;
 	const output =
-		__dirname +
-		"/converted/" +
 		Date.now() +
 		"_converted." +
 		req.body.format;
@@ -101,10 +99,11 @@ app.post("/video", upload.single("file"), (req, res) => {
 						req.body.framerate || video.metadata.video.fps
 					)
 					.setVideoSize(videoSize, true, preserveRatio)
-					.save(output, function (error, file) {
-						if (!error) console.log("File: " + file);
-						res.download(file, () => {
-							fs.unlink(output, (err) => {
+					.save("converted/" + output, function (error, file) {
+						if (!error) {
+						console.log("File: " + file);
+						res.download("converted/" + output, () => {
+							fs.unlink("converted/" + output, (err) => {
 								if (err) throw err;
 								console.log("Deleted: " + file);
 							});
@@ -113,6 +112,7 @@ app.post("/video", upload.single("file"), (req, res) => {
 								console.log("Deleted: " + filepath);
 							});
 						});
+						}
 					});
 			},
 			function (err) {
