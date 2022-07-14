@@ -1,4 +1,4 @@
-const ffmpeg = require("ffmpeg");
+const ffmpeg = require("ffmpeg-for-static");
 const express = require("express");
 const app = express();
 const multer = require("multer");
@@ -27,8 +27,19 @@ app.use(bodyparser.urlencoded({ extended: false }));
 // Removing any uploaded or converted files if there are any
 const uploads = __dirname + "/uploads"
 const converted = __dirname + "/converted"
-fs.readdirSync(uploads).forEach(f => fs.rmSync(`${uploads}/${f}`))
-fs.readdirSync(converted).forEach(f => fs.rmSync(`${converted}/${f}`))
+
+if (!fs.existsSync(uploads)){
+    fs.mkdirSync(uploads);
+}
+else{
+	fs.readdirSync(uploads).forEach(f => fs.rmSync(`${uploads}/${f}`))
+}
+if (!fs.existsSync(converted)){
+	fs.mkdirSync(converted)
+}
+else{
+	fs.readdirSync(converted).forEach(f => fs.rmSync(`${converted}/${f}`))
+}
 
 
 app.get("/", (req, res) => {
@@ -53,8 +64,6 @@ app.get("/video", (req, res) => {
 app.post("/video", upload.single("file"), (req, res) => {
 	const filepath = req.file.path;
 	const output =
-		__dirname +
-		"/converted/" +
 		Date.now() +
 		"_converted." +
 		req.body.format;
@@ -90,10 +99,11 @@ app.post("/video", upload.single("file"), (req, res) => {
 						req.body.framerate || video.metadata.video.fps
 					)
 					.setVideoSize(videoSize, true, preserveRatio)
-					.save(output, function (error, file) {
-						if (!error) console.log("File: " + file);
-						res.download(file, () => {
-							fs.unlink(output, (err) => {
+					.save("converted/" + output, function (error, file) {
+						if (!error) {
+						console.log("File: " + file);
+						res.download("converted/" + output, () => {
+							fs.unlink("converted/" + output, (err) => {
 								if (err) throw err;
 								console.log("Deleted: " + file);
 							});
@@ -102,6 +112,10 @@ app.post("/video", upload.single("file"), (req, res) => {
 								console.log("Deleted: " + filepath);
 							});
 						});
+						}
+						else{
+							res.send(error)
+						}
 					});
 			},
 			function (err) {
@@ -123,8 +137,6 @@ app.get("/audio", (req, res) => {
 app.post("/audio", upload.single("file"), (req, res) => {
 	const filepath = req.file.path;
 	const output =
-		__dirname +
-		"/converted/" +
 		Date.now() +
 		"_converted." +
 		req.body.format;
@@ -133,10 +145,11 @@ app.post("/audio", upload.single("file"), (req, res) => {
 		var process = new ffmpeg(filepath);
 		process.then(
 			function (audio) {
-				audio.save(output, function (error, file) {
-					if (!error) console.log("File: " + file);
-					res.download(file, () => {
-						fs.unlink(output, (err) => {
+				audio.save("converted/" + output, function (error, file) {
+					if (!error) {
+					console.log("File: " + file);
+					res.download("converted/" + output, () => {
+						fs.unlink("converted/" + output, (err) => {
 							if (err) throw err;
 							console.log("Deleted: " + file);
 						});
@@ -144,7 +157,11 @@ app.post("/audio", upload.single("file"), (req, res) => {
 							if (err) throw err;
 							console.log("Deleted: " + filepath);
 						});
-					});
+					});}
+					else{
+						res.send(error)
+					}
+
 				});
 			},
 			function (err) {
@@ -211,6 +228,7 @@ app.post("/image", upload.single("file"), (req, res) => {
 	});
 });
 
-app.listen(60699, () => {
-	console.log("Server: http://127.0.0.1:60699");
+const PORT = process.env.PORT || 60699
+app.listen(PORT, () => {
+	console.log("Server: http://127.0.0.1:" + PORT);
 });
