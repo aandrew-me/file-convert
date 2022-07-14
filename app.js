@@ -113,6 +113,9 @@ app.post("/video", upload.single("file"), (req, res) => {
 							});
 						});
 						}
+						else{
+							res.send(error)
+						}
 					});
 			},
 			function (err) {
