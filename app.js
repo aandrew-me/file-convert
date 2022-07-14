@@ -132,7 +132,8 @@ app.post("/audio", upload.single("file"), (req, res) => {
 		process.then(
 			function (audio) {
 				audio.save("converted/" + output, function (error, file) {
-					if (!error) console.log("File: " + file);
+					if (!error) {
+					console.log("File: " + file);
 					res.download("converted/" + output, () => {
 						fs.unlink("converted/" + output, (err) => {
 							if (err) throw err;
@@ -142,7 +143,11 @@ app.post("/audio", upload.single("file"), (req, res) => {
 							if (err) throw err;
 							console.log("Deleted: " + filepath);
 						});
-					});
+					});}
+					else{
+						res.send(error)
+					}
+
 				});
 			},
 			function (err) {
