@@ -14,18 +14,37 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=public/icon.icns --prune=true --out=release-builds",
-
-    "package-win": "electron-packager . fileconvert --overwrite --asar=true --platform=win32 --arch=ia32 --icon=public/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"File converter\"",  
-
-    "package-linux": "electron-packager . fileconvert --overwrite --asar=true --platform=linux --arch=x64 --icon=public/icon.png --prune=true --out=release-builds"
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
+  "postinstall": "electron-builder install-app-deps",
   "devDependencies": {
-    "electron": "^19.0.8"
+    "electron": "^19.0.8",
+    "electron-builder": "^23.1.0"
   },
   "description": "A set of conversion tools",
   "author": "Andrew",
   "name": "file-convert",
   "version": "0.1.0",
-  "license": "MIT"
+  "license": "MIT",
+
+  "build": {
+    "files":[
+      "main.js",
+      "node_modules"
+    ],
+    "appId": "com.andrew.fileconvert",
+    "mac":{
+      "category":"Utility"
+    }
+    ,
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category":"Utility"
+    },
+    "win": {
+      "target": "nsis"    }
+  }
 }
