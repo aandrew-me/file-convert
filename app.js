@@ -1,4 +1,6 @@
 const ffmpeg = require("ffmpeg-for-static");
+const ffmpegStatic = require("ffmpeg-static");
+const { exec } = require("node:child_process");
 const express = require("express");
 const app = express();
 const multer = require("multer");
@@ -131,42 +133,44 @@ app.get("/audio", (req, res) => {
 
 app.post("/audio", upload.single("file"), (req, res) => {
 	const filepath = req.file.path;
-	const output =
-		Date.now() +
-		"_converted." +
-		req.body.format;
-
-	try {
-		var process = new ffmpeg(filepath);
-		process.then(
-			function (audio) {
-				audio.save("converted/" + output, function (error, file) {
-					if (!error) {
-					console.log("File: " + file);
-					res.download("converted/" + output, () => {
-						fs.unlink("converted/" + output, (err) => {
-							if (err) throw err;
-							console.log("Deleted: " + file);
-						});
-						fs.unlink(filepath, (err) => {
-							if (err) throw err;
-							console.log("Deleted: " + filepath);
-						});
-					});}
-					else{
-						res.send(error)
-					}
-
-				});
-			},
-			function (err) {
-				console.log("Error: " + err);
-			}
-		);
-	} catch (e) {
-		console.log(e.code);
-		console.log(e.msg);
+	const outputfile = Date.now() + "_converted." + req.body.format;
+	const volume = Number(req.body.volume) || 1
+	let normalize;
+	if (req.body.normalize == "on"){
+		normalize = "-filter:a loudnorm "
 	}
+	else{
+		normalize = ""
+	}
+
+	const command =
+		ffmpegStatic +
+		` -i ` +
+		filepath +
+		` -filter:a "volume=` + volume + `" ` +
+		normalize +
+		"converted/" +
+        outputfile;
+
+	console.log(command)
+	exec(command, (err, output) => {
+		// once the command has completed, the callback function is called
+		if (err) {
+			// log and return if we encounter an error
+			console.error("could not execute command: ", err);
+			return;
+		}
+        res.download("converted/" + outputfile, ()=>{
+			fs.unlink("converted/" + outputfile, (err) => {
+				if (err) throw err;
+				console.log("Deleted: " + outputfile);
+			});
+			fs.unlink(filepath, (err) => {
+				if (err) throw err;
+				console.log("Deleted: " + filepath);
+			});
+		})
+	});
 });
 
 // Image processing

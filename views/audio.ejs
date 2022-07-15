@@ -33,11 +33,20 @@
           <option value="opus">Opus</option>
           <option value="mmf">Mmf</option>
         </select>
-        <br>
-      </div>
 
+        <div id="advanced">
+          <label>Set Volume</label>
+          <input type="number" name="volume" placeholder="Default is 1 (100%)">
+<br>
+          <label>Normalize (Uniform) loudness</label>
+          <input type="checkbox" name="normalize">
+        </div>
+        <br><br>
+        <div id="advancedToggle" onclick="toggleAdvanced()">Advanced</div>
         <button type="submit">Convert Audio</button>
-      </form>
+    </div>
+
+    </form>
   </div>
 
 </html>
