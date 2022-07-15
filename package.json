@@ -16,7 +16,7 @@
     "start": "electron .",
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=public/icon.icns --prune=true --out=release-builds",
 
-    "package-win": "electron-packager . fileconvert --overwrite --asar=true --platform=win32 --arch=ia32 --icon=public/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Electron Tutorial App\"",  
+    "package-win": "electron-packager . fileconvert --overwrite --asar=true --platform=win32 --arch=ia32 --icon=public/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"File converter\"",  
 
     "package-linux": "electron-packager . fileconvert --overwrite --asar=true --platform=linux --arch=x64 --icon=public/icon.png --prune=true --out=release-builds"
   },
