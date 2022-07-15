@@ -94,11 +94,11 @@ app.post("/video", upload.single("file"), (req, res) => {
 					// 	req.body.framerate || video.metadata.video.fps
 					// )
 					// .setVideoSize(videoSize, true, preserveRatio)
-					.save("converted/" + output, function (error, file) {
+					.save(__dirname + "/converted/" + output, function (error, file) {
 						if (!error) {
 						console.log("File: " + file);
-						res.download("converted/" + output, () => {
-							fs.unlink("converted/" + output, (err) => {
+						res.download(__dirname + "/converted/" + output, () => {
+							fs.unlink(__dirname + "/converted/" + output, (err) => {
 								if (err) throw err;
 								console.log("Deleted: " + file);
 							});
@@ -140,11 +140,11 @@ app.post("/audio", upload.single("file"), (req, res) => {
 		var process = new ffmpeg(filepath);
 		process.then(
 			function (audio) {
-				audio.save("converted/" + output, function (error, file) {
+				audio.save(__dirname + "/converted/" + output, function (error, file) {
 					if (!error) {
 					console.log("File: " + file);
-					res.download("converted/" + output, () => {
-						fs.unlink("converted/" + output, (err) => {
+					res.download(__dirname + "/converted/" + output, () => {
+						fs.unlink(__dirname + "/converted/" + output, (err) => {
 							if (err) throw err;
 							console.log("Deleted: " + file);
 						});
@@ -208,10 +208,10 @@ app.post("/image", upload.single("file"), (req, res) => {
 		await image
 			.quality(Number(req.body.quality) || 85) // set JPEG quality
 			.resize(width, height)
-			.writeAsync("converted/" + outputfile); // save
-		res.download("converted/" + outputfile, () => {
+			.writeAsync(__dirname + "/converted/" + outputfile); // save
+		res.download(__dirname + "/converted/" + outputfile, () => {
 			// Removing the files
-			fs.unlink("converted/" + outputfile, (err) => {
+			fs.unlink(__dirname + "/converted/" + outputfile, (err) => {
 				if (err) throw err;
 				console.log("Deleted: " + outputfile);
 			});
@@ -238,7 +238,7 @@ app.post("/document", upload.single("file"), function (req, res) {
 
 	async function main() {
 		const inputPath = filepath;
-		const outputPath = "converted/" + outputfile
+		const outputPath = __dirname + "/converted/" + outputfile
 	
 		// Read file
 		const docxBuf = await fsp.readFile(inputPath);
