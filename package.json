@@ -14,37 +14,42 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "node":"node app",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder -w"
   },
-  "postinstall": "electron-builder install-app-deps",
   "devDependencies": {
-    "electron": "^19.0.8",
+    "electron": "19.0.8",
     "electron-builder": "^23.1.0"
   },
   "description": "A set of conversion tools",
   "author": "Andrew",
-  "name": "file-convert",
-  "version": "0.1.0",
+  "name": "fileconvert",
+  "version": "0.9.0",
   "license": "MIT",
 
   "build": {
-    "files":[
-      "main.js",
-      "node_modules"
-    ],
+    "productName":"File Convert",
     "appId": "com.andrew.fileconvert",
     "mac":{
       "category":"Utility"
     }
     ,
+    "asar":false,
+    "directories":{
+  "buildResources":"resources"
+    },
     "linux": {
       "target": [
-        "AppImage"
+      "AppImage"
       ],
       "category":"Utility"
     },
     "win": {
-      "target": "nsis"    }
+      "target": "nsis"    },
+    "nsis":{
+      "allowToChangeInstallationDirectory":true,
+      "oneClick":false
+    }
   }
 }
