@@ -19,7 +19,7 @@
     "dist": "electron-builder -wml",
     "linux":"rm -rf node_modules && electron-builder -l",
     "windows":"rm -rf node_modules && electron-builder -w",
-    "mac":"rm -rf node_modules && electron-builder"
+    "mac":"rm -rf node_modules && electron-builder -m"
   },
   "devDependencies": {
     "electron": "19.0.8",
@@ -35,9 +35,26 @@
     "productName":"FileConvert",
     "appId": "com.andrew.fileconvert",
     "mac":{
-      "category":"Utility"
-    }
-    ,
+      "category":"Utility",
+      "target":[
+        "dmg"
+      ]
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "sign": false
+    },
     "asar":false,
     "directories":{
   "buildResources":"resources"
@@ -45,10 +62,12 @@
     "linux": {
       "target": [
       "AppImage"
-      ]
+      ],
+      "category":"Utility"
     },
     "win": {
-      "target": "nsis"    },
+      "target": "nsis"    
+    },
     "nsis":{
       "allowToChangeInstallationDirectory":true,
       "oneClick":false
