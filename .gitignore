@@ -1,4 +1,5 @@
 node_modules/
 release-builds
 test.js
-package-json.lock
+package-lock.json
+dist

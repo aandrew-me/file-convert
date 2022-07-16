@@ -16,7 +16,10 @@
     "start": "electron .",
     "node":"node app",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder -w"
+    "dist": "electron-builder -wml",
+    "linux":"rm -rf node_modules && electron-builder -l",
+    "windows":"rm -rf node_modules && electron-builder -w",
+    "mac":"rm -rf node_modules && electron-builder"
   },
   "devDependencies": {
     "electron": "19.0.8",
@@ -42,8 +45,7 @@
     "linux": {
       "target": [
       "AppImage"
-      ],
-      "category":"Utility"
+      ]
     },
     "win": {
       "target": "nsis"    },
