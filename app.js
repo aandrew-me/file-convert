@@ -133,7 +133,7 @@ app.get("/audio", (req, res) => {
 
 app.post("/audio", upload.single("file"), (req, res) => {
 	const filepath = req.file.path;
-	const outputfile = Date.now() + "_converted." + req.body.format;
+	const outputpath = __dirname + "/converted/" + Date.now() + "_converted." + req.body.format;
 	const volume = Number(req.body.volume) || 1
 	let normalize;
 	if (req.body.normalize == "on"){
@@ -149,8 +149,7 @@ app.post("/audio", upload.single("file"), (req, res) => {
 		filepath +
 		` -filter:a "volume=` + volume + `" ` +
 		normalize +
-		"converted/" +
-        outputfile;
+        outputpath;
 
 	console.log(command)
 	exec(command, (err, output) => {
@@ -160,10 +159,10 @@ app.post("/audio", upload.single("file"), (req, res) => {
 			console.error("could not execute command: ", err);
 			return;
 		}
-        res.download("converted/" + outputfile, ()=>{
-			fs.unlink("converted/" + outputfile, (err) => {
+        res.download(outputpath, ()=>{
+			fs.unlink(outputpath, (err) => {
 				if (err) throw err;
-				console.log("Deleted: " + outputfile);
+				console.log("Deleted: " + outputpath);
 			});
 			fs.unlink(filepath, (err) => {
 				if (err) throw err;

@@ -32,7 +32,7 @@
   "license": "MIT",
 
   "build": {
-    "productName":"File Convert",
+    "productName":"FileConvert",
     "appId": "com.andrew.fileconvert",
     "mac":{
       "category":"Utility"
