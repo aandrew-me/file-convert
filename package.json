@@ -6,7 +6,7 @@
 		"ffmpeg-for-static": "^1.0.0",
 		"ffmpeg-static": "^5.0.2",
 		"file-type": "^17.1.2",
-		"jimp": "^0.16.0",
+		"jimp": "^0.16.1",
 		"libreoffice-convert": "^1.4.1",
 		"multer": "^1.4.5-lts.1",
 		"path": "^0.12.7"
