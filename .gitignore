@@ -1,3 +1,4 @@
 node_modules/
-fileconvert-linux-x64
+release-builds
 test.js
+package-json.lock
