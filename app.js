@@ -1,6 +1,7 @@
 const ffmpeg = require("ffmpeg-for-static");
 const ffmpegStatic = require("ffmpeg-static");
 const { exec } = require("node:child_process");
+const os = require("os")
 const express = require("express");
 const app = express();
 const multer = require("multer");
@@ -31,8 +32,8 @@ app.use(bodyparser.urlencoded({ extended: false }));
 //////////////////////////////////////////
 
 // Removing any uploaded or converted files if there are any
-const uploads = __dirname + "/uploads"
-const converted = __dirname + "/converted"
+const uploads = path.join(os.tmpdir(), "Uploads")
+const converted = path.join(os.homedir(), "Converted")
 
 if (!fs.existsSync(uploads)){
     fs.mkdirSync(uploads);

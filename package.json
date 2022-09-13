@@ -5,78 +5,27 @@
 		"express": "^4.18.1",
 		"ffmpeg-for-static": "^1.0.0",
 		"ffmpeg-static": "^5.0.2",
-		"file-type": "^17.1.2",
 		"jimp": "^0.16.1",
 		"libreoffice-convert": "^1.4.1",
-		"multer": "^1.4.5-lts.1",
-		"path": "^0.12.7"
+		"multer": "^1.4.5-lts.1"
 	},
-	"main": "main.js",
+	"main": "app.js",
 	"scripts": {
-		"start": "electron .",
-		"node": "node app",
-		"pack": "electron-builder --dir",
-		"dist": "electron-builder -wml",
-		"linux": "rm -rf node_modules && electron-builder -l",
-		"windows": "rm -rf node_modules && electron-builder -w --publish always",
-		"mac": "rm -rf node_modules && electron-builder -m"
-	},
-	"devDependencies": {
-		"electron": "19.0.8",
-		"electron-builder": "^23.1.0"
+		"start": "node app.js"
 	},
 	"description": "A set of conversion tools",
 	"author": "Andrew",
 	"name": "fileconvert",
 	"version": "0.9.0",
 	"license": "MIT",
-	"build": {
-		"productName": "FileConvert",
-		"appId": "com.andrew.fileconvert",
-		"mac": {
-			"category": "Utility",
-			"target": [
-				"dmg"
-			]
-		},
-		"dmg": {
-			"contents": [
-				{
-					"x": 130,
-					"y": 220
-				},
-				{
-					"x": 410,
-					"y": 220,
-					"type": "link",
-					"path": "/Applications"
-				}
-			],
-			"sign": false
-		},
-		"asar": false,
-		"directories": {
-			"buildResources": "resources",
-			"output": "release"
-		},
-		"linux": {
-			"target": [
-				"AppImage"
-			],
-			"category": "Utility"
-		},
-		"win": {
-			"target": "nsis"
-		},
-		"nsis": {
-			"allowToChangeInstallationDirectory": true,
-			"oneClick": false
-		},
-		"publish": {
-			"provider": "github",
-			"owner": "aandrew-me",
-			"repo": "file-convert",
-			"private": false
-		}
+	"pkg": {
+		"assets": [
+			"public/**/*",
+			"resources/**/*"
+		],
+		"targets": [
+			"node14-linux-arm64"
+		],
+		"outputPath": "dist"
 	}
 }
